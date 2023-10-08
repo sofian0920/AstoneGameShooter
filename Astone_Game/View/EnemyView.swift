@@ -12,4 +12,10 @@ class EnemyView: UIImageView {
     private let selfnimationDuration = 0.5
     private let selfnimationRepeatCount = 1
 
+    
+    convenience init(){
+        self.init(image: Image.enemy.wrappedValue)
+        
+    }
+    
 }

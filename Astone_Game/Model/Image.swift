@@ -21,7 +21,7 @@ enum Image {
         case .enemy:
             return UIImage(named: "enemyImage")
         case .border:
-            return UIImage(named: "borderImage-1")
+            return UIImage(named: "borderImage")
         case .userPlain:
             return UIImage(named: "plainImage")
         case .background:

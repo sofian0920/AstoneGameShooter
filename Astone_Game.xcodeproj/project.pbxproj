@@ -9,9 +9,11 @@
 /* Begin PBXBuildFile section */
 		AC24EF332ABDCC14009D2CF7 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC24EF322ABDCC14009D2CF7 /* SettingsViewController.swift */; };
 		AC24EF352ABDCCFD009D2CF7 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC24EF342ABDCCFD009D2CF7 /* GameViewController.swift */; };
-		AC24EF372ABDCD4E009D2CF7 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC24EF362ABDCD4E009D2CF7 /* Model.swift */; };
+		AC24EF372ABDCD4E009D2CF7 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC24EF362ABDCD4E009D2CF7 /* Image.swift */; };
 		AC7C425E2AD033FF00FDD76C /* PlainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7C425D2AD033FF00FDD76C /* PlainView.swift */; };
 		AC7C42602AD0360500FDD76C /* EnemyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7C425F2AD0360500FDD76C /* EnemyView.swift */; };
+		AC8E21052AD1473000D26D59 /* CherecterSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8E21042AD1473000D26D59 /* CherecterSettings.swift */; };
+		AC8E21072AD1B03A00D26D59 /* BorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8E21062AD1B03A00D26D59 /* BorderView.swift */; };
 		ACB49C2B2AA8A39500591F35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB49C2A2AA8A39500591F35 /* AppDelegate.swift */; };
 		ACB49C2D2AA8A39500591F35 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB49C2C2AA8A39500591F35 /* SceneDelegate.swift */; };
 		ACB49C2F2AA8A39500591F35 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB49C2E2AA8A39500591F35 /* StartViewController.swift */; };
@@ -22,9 +24,11 @@
 /* Begin PBXFileReference section */
 		AC24EF322ABDCC14009D2CF7 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		AC24EF342ABDCCFD009D2CF7 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
-		AC24EF362ABDCD4E009D2CF7 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		AC24EF362ABDCD4E009D2CF7 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		AC7C425D2AD033FF00FDD76C /* PlainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainView.swift; sourceTree = "<group>"; };
 		AC7C425F2AD0360500FDD76C /* EnemyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyView.swift; sourceTree = "<group>"; };
+		AC8E21042AD1473000D26D59 /* CherecterSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CherecterSettings.swift; sourceTree = "<group>"; };
+		AC8E21062AD1B03A00D26D59 /* BorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderView.swift; sourceTree = "<group>"; };
 		ACB49C272AA8A39500591F35 /* Astone_Game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Astone_Game.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACB49C2A2AA8A39500591F35 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACB49C2C2AA8A39500591F35 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,10 +53,20 @@
 			isa = PBXGroup;
 			children = (
 				AC7C425F2AD0360500FDD76C /* EnemyView.swift */,
+				AC8E21062AD1B03A00D26D59 /* BorderView.swift */,
 				AC7C425D2AD033FF00FDD76C /* PlainView.swift */,
 				AC24EF342ABDCCFD009D2CF7 /* GameViewController.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		AC8E21032AD1470500D26D59 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AC24EF362ABDCD4E009D2CF7 /* Image.swift */,
+				AC8E21042AD1473000D26D59 /* CherecterSettings.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		ACB49C1E2AA8A39500591F35 = {
@@ -79,7 +93,7 @@
 				AC24EF322ABDCC14009D2CF7 /* SettingsViewController.swift */,
 				ACB49C2E2AA8A39500591F35 /* StartViewController.swift */,
 				AC7C42612AD0369700FDD76C /* View */,
-				AC24EF362ABDCD4E009D2CF7 /* Model.swift */,
+				AC8E21032AD1470500D26D59 /* Model */,
 				ACB49C332AA8A39600591F35 /* Assets.xcassets */,
 				ACB49C352AA8A39600591F35 /* LaunchScreen.storyboard */,
 				ACB49C382AA8A39600591F35 /* Info.plist */,
@@ -157,13 +171,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC8E21052AD1473000D26D59 /* CherecterSettings.swift in Sources */,
 				AC24EF352ABDCCFD009D2CF7 /* GameViewController.swift in Sources */,
 				AC7C425E2AD033FF00FDD76C /* PlainView.swift in Sources */,
 				ACB49C2F2AA8A39500591F35 /* StartViewController.swift in Sources */,
 				AC7C42602AD0360500FDD76C /* EnemyView.swift in Sources */,
 				AC24EF332ABDCC14009D2CF7 /* SettingsViewController.swift in Sources */,
-				AC24EF372ABDCD4E009D2CF7 /* Model.swift in Sources */,
+				AC24EF372ABDCD4E009D2CF7 /* Image.swift in Sources */,
 				ACB49C2B2AA8A39500591F35 /* AppDelegate.swift in Sources */,
+				AC8E21072AD1B03A00D26D59 /* BorderView.swift in Sources */,
 				ACB49C2D2AA8A39500591F35 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,7 +11,7 @@ class StartViewController: UIViewController {
     private let backgroundImageView = UIImageView()
     private let startButton = UIButton()
     private let settingButton = UIButton()
-    private let scoreButton = UIButton()
+    private let recordButton = UIButton()
     
     
     override func viewDidLoad() {
@@ -35,7 +35,7 @@ class StartViewController: UIViewController {
         startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         startButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         startButton.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        startButton.heightAnchor.constraint(equalTo: startButton.widthAnchor).isActive = true
+        startButton.heightAnchor.constraint(equalTo: startButton.widthAnchor, multiplier: 0.3).isActive = true
         startButton.addTarget(self, action: #selector(buttonTub), for: .touchUpInside)
         
         let settingButtonAttributes = NSAttributedString(string: "SETTINGS", attributes: attributes)
@@ -48,14 +48,14 @@ class StartViewController: UIViewController {
         settingButton.heightAnchor.constraint(equalTo: startButton.heightAnchor).isActive = true
         settingButton.addTarget(self, action: #selector(buttonTub), for: .touchUpInside)
         
-        let scoreButtonAttributes = NSAttributedString(string: "SCORE", attributes: attributes)
-        scoreButton.setAttributedTitle(scoreButtonAttributes, for: .normal)
-        scoreButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(scoreButton)
-        scoreButton.centerXAnchor.constraint(equalTo: startButton.centerXAnchor).isActive = true
-        scoreButton.topAnchor.constraint(equalTo: settingButton.bottomAnchor).isActive = true
-        scoreButton.widthAnchor.constraint(equalTo: startButton.widthAnchor).isActive = true
-        scoreButton.heightAnchor.constraint(equalTo: startButton.heightAnchor).isActive = true
+        let scoreButtonAttributes = NSAttributedString(string: "RECORD TABLE", attributes: attributes)
+        recordButton.setAttributedTitle(scoreButtonAttributes, for: .normal)
+        recordButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(recordButton)
+        recordButton.centerXAnchor.constraint(equalTo: startButton.centerXAnchor).isActive = true
+        recordButton.topAnchor.constraint(equalTo: settingButton.bottomAnchor).isActive = true
+        recordButton.widthAnchor.constraint(equalTo: startButton.widthAnchor).isActive = true
+        recordButton.heightAnchor.constraint(equalTo: startButton.heightAnchor).isActive = true
         
     }
     private func addBackgroundView() {
@@ -80,6 +80,7 @@ class StartViewController: UIViewController {
         default:
             return
         }
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
