@@ -86,6 +86,10 @@ class CherecterSettings: CherecterSettingsProtocol {
         UserDefaults.standard.set(name, forKey: Keys.userName.rawValue)
     }
     
+    func setSpeedLevel(with level: SpeedLevel) {
+        UserDefaults.standard.set(level.rawValue, forKey: Keys.speedLevel.rawValue)
+    }
+    
     func writeScore(_ value: String) {
         guard var array = UserDefaults.standard.value(forKey: Keys.gameScores.rawValue) as? [String] else {
             let array = [value]

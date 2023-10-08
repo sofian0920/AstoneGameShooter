@@ -194,7 +194,7 @@ class GameViewController: UIViewController {
     private func addEnemy() {
         isEnemyDead = true
         enemyView.frame.size = CGSizeMake(view.frame.width * 0.13, view.frame.height * 0.07)
-        let emenyMinX = Int(backgroundImage.frame.origin.x)
+        let emenyMinX = Int(backgroundImage.frame.origin.x + 40)
         let enemyMaxX = Int(leftBorderView.frame.width + backgroundImage.frame.width - enemyView.frame.width)
         let enemeRandomPoint = Int.random(in: emenyMinX...enemyMaxX)
         enemyView.frame.origin = CGPoint(x: enemeRandomPoint, y: -100)

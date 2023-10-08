@@ -12,6 +12,9 @@
 		AC24EF372ABDCD4E009D2CF7 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC24EF362ABDCD4E009D2CF7 /* Image.swift */; };
 		AC6F3F722AD2A71100B1031D /* RecordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6F3F712AD2A71100B1031D /* RecordTableViewCell.swift */; };
 		AC6F3F742AD2A8BA00B1031D /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6F3F732AD2A8BA00B1031D /* RecordViewController.swift */; };
+		AC6F3F762AD2D52800B1031D /* SettingPlainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6F3F752AD2D52800B1031D /* SettingPlainViewController.swift */; };
+		AC6F3F782AD2DFEF00B1031D /* SettingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6F3F772AD2DFEF00B1031D /* SettingPresenter.swift */; };
+		AC6F3F7A2AD2EC0E00B1031D /* SettingInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6F3F792AD2EC0E00B1031D /* SettingInteractorProtocol.swift */; };
 		AC7C425E2AD033FF00FDD76C /* PlainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7C425D2AD033FF00FDD76C /* PlainView.swift */; };
 		AC7C42602AD0360500FDD76C /* EnemyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7C425F2AD0360500FDD76C /* EnemyView.swift */; };
 		AC8E21052AD1473000D26D59 /* CherecterSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8E21042AD1473000D26D59 /* CherecterSettings.swift */; };
@@ -29,6 +32,9 @@
 		AC24EF362ABDCD4E009D2CF7 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		AC6F3F712AD2A71100B1031D /* RecordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordTableViewCell.swift; sourceTree = "<group>"; };
 		AC6F3F732AD2A8BA00B1031D /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
+		AC6F3F752AD2D52800B1031D /* SettingPlainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPlainViewController.swift; sourceTree = "<group>"; };
+		AC6F3F772AD2DFEF00B1031D /* SettingPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPresenter.swift; sourceTree = "<group>"; };
+		AC6F3F792AD2EC0E00B1031D /* SettingInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingInteractorProtocol.swift; sourceTree = "<group>"; };
 		AC7C425D2AD033FF00FDD76C /* PlainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainView.swift; sourceTree = "<group>"; };
 		AC7C425F2AD0360500FDD76C /* EnemyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyView.swift; sourceTree = "<group>"; };
 		AC8E21042AD1473000D26D59 /* CherecterSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CherecterSettings.swift; sourceTree = "<group>"; };
@@ -60,6 +66,17 @@
 				AC6F3F732AD2A8BA00B1031D /* RecordViewController.swift */,
 			);
 			path = Record;
+			sourceTree = "<group>";
+		};
+		AC6F3F7B2AD2F30400B1031D /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				AC24EF322ABDCC14009D2CF7 /* SettingsViewController.swift */,
+				AC6F3F792AD2EC0E00B1031D /* SettingInteractorProtocol.swift */,
+				AC6F3F772AD2DFEF00B1031D /* SettingPresenter.swift */,
+				AC6F3F752AD2D52800B1031D /* SettingPlainViewController.swift */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		AC7C42612AD0369700FDD76C /* View */ = {
@@ -103,8 +120,8 @@
 			children = (
 				ACB49C2A2AA8A39500591F35 /* AppDelegate.swift */,
 				ACB49C2C2AA8A39500591F35 /* SceneDelegate.swift */,
-				AC24EF322ABDCC14009D2CF7 /* SettingsViewController.swift */,
 				ACB49C2E2AA8A39500591F35 /* StartViewController.swift */,
+				AC6F3F7B2AD2F30400B1031D /* Setting */,
 				AC6F3F702AD2A6C400B1031D /* Record */,
 				AC7C42612AD0369700FDD76C /* View */,
 				AC8E21032AD1470500D26D59 /* Model */,
@@ -187,13 +204,16 @@
 			files = (
 				AC8E21052AD1473000D26D59 /* CherecterSettings.swift in Sources */,
 				AC24EF352ABDCCFD009D2CF7 /* GameViewController.swift in Sources */,
+				AC6F3F762AD2D52800B1031D /* SettingPlainViewController.swift in Sources */,
 				AC7C425E2AD033FF00FDD76C /* PlainView.swift in Sources */,
 				ACB49C2F2AA8A39500591F35 /* StartViewController.swift in Sources */,
 				AC6F3F742AD2A8BA00B1031D /* RecordViewController.swift in Sources */,
 				AC7C42602AD0360500FDD76C /* EnemyView.swift in Sources */,
 				AC24EF332ABDCC14009D2CF7 /* SettingsViewController.swift in Sources */,
 				AC24EF372ABDCD4E009D2CF7 /* Image.swift in Sources */,
+				AC6F3F782AD2DFEF00B1031D /* SettingPresenter.swift in Sources */,
 				ACB49C2B2AA8A39500591F35 /* AppDelegate.swift in Sources */,
+				AC6F3F7A2AD2EC0E00B1031D /* SettingInteractorProtocol.swift in Sources */,
 				AC8E21072AD1B03A00D26D59 /* BorderView.swift in Sources */,
 				ACB49C2D2AA8A39500591F35 /* SceneDelegate.swift in Sources */,
 				AC6F3F722AD2A71100B1031D /* RecordTableViewCell.swift in Sources */,
