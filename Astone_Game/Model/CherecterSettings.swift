@@ -19,7 +19,10 @@ enum Keys: String {
     case plainImage
     case speedLevel
     case gameScores
+    case scoresCount
+    case userName
 }
+
 
 enum SpeedLevel: String{
     case easy
@@ -40,13 +43,22 @@ enum SpeedLevel: String{
 
 protocol CherecterSettingsProtocol {
     var plainImage: UIImage { get }
+    var userName: String { get }
+    var speedLevel: SpeedLevel { get }
+    
+    func setplainImage(with plainImage: PlainImage)
+    func setUserName(with name: String)
 }
 
+
 class CherecterSettings: CherecterSettingsProtocol {
-    
-    
+   
     static let settingElement = CherecterSettings()
     
+    var userName: String {
+        guard let name = UserDefaults.standard.value(forKey: Keys.userName.rawValue) as? String else { return "" }
+        return name
+    }
     
     var plainImage: UIImage{
         let plainImage = UserDefaults.standard.value(forKey: Keys.plainImage.rawValue) as? String
@@ -59,8 +71,19 @@ class CherecterSettings: CherecterSettingsProtocol {
         return SpeedLevel(rawValue: value ?? "") ?? .easy
     }
     
+    var score: [String] {
+        guard let array = UserDefaults.standard.value(forKey: Keys.scoresCount.rawValue) as? [String] else {
+            return []
+        }
+        return array
+    }
+    
     func setplainImage(with plainImage: PlainImage) {
         UserDefaults.standard.set(plainImage.rawValue, forKey: Keys.plainImage.rawValue)
+    }
+    
+    func setUserName(with name: String) {
+        UserDefaults.standard.set(name, forKey: Keys.userName.rawValue)
     }
     
     func writeScore(_ value: String) {

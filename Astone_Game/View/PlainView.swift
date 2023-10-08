@@ -14,6 +14,10 @@ class PlainView: UIImageView {
 
     convenience init() {
         self.init(image: Image.userPlain.wrappedValue)
+        self.animationImages = [Image.boomFirst.wrappedValue!, Image.boomSecond.wrappedValue!]
+        self.animationDuration = selfAnimationDuration
+        self.animationRepeatCount = selfAnimationRepeatCount
+    
         
     }
 }

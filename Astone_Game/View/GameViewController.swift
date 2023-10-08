@@ -11,15 +11,17 @@ import UIKit
 
 class GameViewController: UIViewController {
     private let plainView = PlainView()
-    private var isPlainDead = false
+    private var isPlainDead = true
     private let enemyView = EnemyView()
-    private var isEnemyDead = false
+    private var isEnemyDead = true
     private let backgroundImage = UIImageView()
     private let leftButton = UIButton()
     private let rightButton = UIButton()
     private var scoreLabel = UILabel()
     private var scoreCount = 0
+    private let firePlainView: [UIImageView?] = []
     private var collisionTimer: Timer?
+    private var buttonTimer: Timer?
     private let gameOverLabel = UILabel()
     private var isGameOver = false
     private let leftBorderView = BorderView()
@@ -32,6 +34,9 @@ class GameViewController: UIViewController {
         }
     }
     
+//    private var spaceShipFireViews: [UIImageView?] = []
+//    private var buttonHeldTimer: Timer?
+//    private var immortalSpaceShipTimer: Timer?
     
     
     private let buttonSide: CGFloat = 20
@@ -42,12 +47,8 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
-        addRuleButten()
-        addBackgroundView()
-        addPlainView()
-        addScoreLabel()
-        addBorderLine()
-        
+
+        readyToPlay()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -55,46 +56,66 @@ class GameViewController: UIViewController {
         startGame()
     }
     
+    func readyToPlay() {
+        addRuleButten()
+        addBackgroundView()
+        addPlainView()
+        addScoreLabel()
+        addBorderLine()
+    }
+    
     @objc private func startTouchButton(_ sender: UIButton) {
-        switch sender {
-        case self.leftButton:
-            UIView.animate(withDuration: 0.6 , delay: 0, options: [.curveLinear]) {
-                self.plainView.frame.origin.x -= 20 
+        buttonTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] _ in
+            switch sender {
+            case self?.leftButton:
+                UIView.animate(withDuration: 0.6 , delay: 0, options: [.curveLinear]) {
+                    self?.plainView.frame.origin.x -= 20
+                }
+            case self?.rightButton:
+                UIView.animate(withDuration: 0.6 , delay: 0, options: [.curveLinear]) {
+                    self?.plainView.frame.origin.x += 20
+                }
+            default:
+                break
             }
-        case self.rightButton:
-            UIView.animate(withDuration: 0.6 , delay: 0, options: [.curveLinear]) {
-                self.plainView.frame.origin.x += 20 
-            }
-        default:
-            break
-        }
+        })
     }
     
     @objc private func stopTouchButton(_sender: UIButton){
-        
+        buttonTimer?.invalidate()
+        buttonTimer = nil
     }
     
     
     private func addRuleButten() {
-        leftButton.backgroundColor = .cyan
+        leftButton.backgroundColor = .white
+        leftButton.alpha = 0.2
+        leftButton.layer.cornerRadius = 30
         leftButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(leftButton)
         leftButton.addTarget(self, action: #selector(startTouchButton), for: .touchDown)
-        leftButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: buttonSide).isActive = true
+        leftButton.addTarget(self, action: #selector(stopTouchButton), for: .touchUpInside)
+        leftButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 80).isActive = true
         leftButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -buttonBottom).isActive = true
         leftButton.heightAnchor.constraint(equalToConstant: buttonSize).isActive = true
         leftButton.widthAnchor.constraint(equalToConstant: buttonSize).isActive = true
         
-        rightButton.backgroundColor = .cyan
+        rightButton.backgroundColor = .white
+        rightButton.alpha = 0.2
+        rightButton.layer.cornerRadius = 30
         rightButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(rightButton)
         rightButton.addTarget(self, action: #selector(startTouchButton), for: .touchDown)
-        rightButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -buttonSide).isActive = true
+        rightButton.addTarget(self, action: #selector(stopTouchButton), for: .touchUpInside)
+        rightButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -80).isActive = true
         rightButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -buttonBottom).isActive = true
         rightButton.heightAnchor.constraint(equalToConstant: buttonSize).isActive = true
         rightButton.widthAnchor.constraint(equalToConstant: buttonSize).isActive = true
         
     }
+    
+
+    
     
     private func addBorderLine() {
         leftBorderView.translatesAutoresizingMaskIntoConstraints = false
@@ -141,7 +162,7 @@ class GameViewController: UIViewController {
         scoreLabel.textAlignment = .right
         scoreLabel.translatesAutoresizingMaskIntoConstraints = false
         backgroundImage.addSubview(scoreLabel)
-        scoreLabel.trailingAnchor.constraint(equalTo: backgroundImage.trailingAnchor).isActive = true
+        scoreLabel.trailingAnchor.constraint(equalTo: backgroundImage.trailingAnchor, constant: 20).isActive = true
         scoreLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         scoreLabel.widthAnchor.constraint(equalTo: backgroundImage.widthAnchor).isActive = true
         
@@ -151,7 +172,7 @@ class GameViewController: UIViewController {
         
         plainView.frame.size = CGSizeMake(view.frame.size.width * 0.18,  view.frame.size.height * 0.075)
         plainView.center.x = view.center.x
-        plainView.frame.origin.y = view.frame.maxY - 120
+        plainView.frame.origin.y = view.frame.maxY - 240
         view.addSubview(plainView)
         
     }
@@ -172,7 +193,7 @@ class GameViewController: UIViewController {
     
     private func addEnemy() {
         isEnemyDead = true
-        enemyView.frame.size = CGSizeMake(view.frame.width * 0.13, view.frame.height * 0.13)
+        enemyView.frame.size = CGSizeMake(view.frame.width * 0.13, view.frame.height * 0.07)
         let emenyMinX = Int(backgroundImage.frame.origin.x)
         let enemyMaxX = Int(leftBorderView.frame.width + backgroundImage.frame.width - enemyView.frame.width)
         let enemeRandomPoint = Int.random(in: emenyMinX...enemyMaxX)
@@ -200,6 +221,7 @@ class GameViewController: UIViewController {
         guard isPlainDead else { return }
         guard isEnemyDead else { return }
         plainCollisionCheck()
+        fireCollisionCheck()
     }
 
     
@@ -223,6 +245,25 @@ class GameViewController: UIViewController {
             
         }
     }
+    
+    private func fireCollisionCheck() {
+        for fire in firePlainView {
+            guard let enemyFrame = enemyView.layer.presentation()?.frame else { return }
+            guard let fireCheck = fire?.layer.presentation()?.frame.intersects(enemyFrame) else { return }
+            if fireCheck {
+                isEnemyDead = false
+                fire?.removeFromSuperview()
+                guard !isEnemyDead else { return }
+                scoreCount += 1
+                scoreLabel.text = "\(scoreCount)"
+                enemyView.stopAnimating()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [weak self] in
+                    self?.enemyView.removeFromSuperview()
+                }
+            }
+        }
+    }
+    
     
     private func gameOver() {
         isGameOver = true

@@ -15,6 +15,8 @@ enum Image {
     case border
     case userPlain
     case background
+    case boomFirst
+    case boomSecond
     
     var wrappedValue: UIImage? {
         switch self {
@@ -26,7 +28,10 @@ enum Image {
             return UIImage(named: "plainImage")
         case .background:
             return UIImage(named: "backgroundImage")
-            
+        case .boomFirst:
+            return UIImage(named: "boomImage")
+        case .boomSecond:
+            return UIImage(named: "boomImage-2")
         }
     }
 }

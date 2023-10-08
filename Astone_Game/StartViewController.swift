@@ -56,6 +56,7 @@ class StartViewController: UIViewController {
         recordButton.topAnchor.constraint(equalTo: settingButton.bottomAnchor).isActive = true
         recordButton.widthAnchor.constraint(equalTo: startButton.widthAnchor).isActive = true
         recordButton.heightAnchor.constraint(equalTo: startButton.heightAnchor).isActive = true
+        recordButton.addTarget(self, action: #selector(buttonTub), for: .touchUpInside)
         
     }
     private func addBackgroundView() {
@@ -76,6 +77,8 @@ class StartViewController: UIViewController {
             viewController = GameViewController()
         case settingButton:
             viewController = SettingsViewController()
+        case recordButton:
+            viewController = RecordViewController()
             
         default:
             return

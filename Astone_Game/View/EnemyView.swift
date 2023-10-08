@@ -8,14 +8,16 @@
 import UIKit
 
 class EnemyView: UIImageView {
-
-    private let selfnimationDuration = 0.5
-    private let selfnimationRepeatCount = 1
-
+    
+    private let selfAnimationDuration = 0.5
+    private let selfAnimationRepeatCount = 1
+    
     
     convenience init(){
         self.init(image: Image.enemy.wrappedValue)
+        self.animationImages = [Image.boomFirst.wrappedValue!, Image.boomSecond.wrappedValue!]
+        self.animationDuration = selfAnimationDuration
+        self.animationRepeatCount = selfAnimationRepeatCount
         
     }
-    
 }

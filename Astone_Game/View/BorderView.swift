@@ -11,10 +11,10 @@ import UIKit
 
 final class BorderView: UIView{
     
-     private let leftObject = UIImageView()
-     private let rightObject = UIImageView()
-     private var leftObgectFrame = CGRect()
-     private var rightObgectFrame = CGRect()
+     private let firstFalling = UIImageView()
+     private let secondFalling = UIImageView()
+     private var firstFrame = CGRect()
+     private var secondFrame = CGRect()
      
      
     func startGame() {
@@ -24,28 +24,28 @@ final class BorderView: UIView{
     
     
      private func addBorgerView() {
-         leftObject.image = Image.border.wrappedValue
-         self.addSubview(leftObject)
-         leftObject.frame = self.bounds
-         leftObgectFrame = leftObject.frame
+         firstFalling.image = Image.border.wrappedValue
+         self.addSubview(firstFalling)
+         firstFalling.frame = self.bounds
+         firstFrame = firstFalling.frame
          
          
-         rightObject.image = Image.border.wrappedValue
-         self.addSubview(rightObject)
-         rightObject.frame = self.bounds
-         rightObject.frame.origin.y = -self.bounds.height
-         rightObgectFrame = rightObject.frame
+         secondFalling.image = Image.border.wrappedValue
+         self.addSubview(secondFalling)
+         secondFalling.frame = self.bounds
+         secondFalling.frame.origin.y = -self.bounds.height
+         secondFrame = secondFalling.frame
      }
 
     
     private func movingBorder() {
-        UIView.animate(withDuration: 0.6, delay: 0, options: [.curveLinear]) { [weak self] in
-            self?.leftObject.frame.origin.y = self?.bounds.height ?? 0
-            self?.rightObject.frame.origin.y = self?.bounds.height ?? 0
+        UIView.animate(withDuration: 1.2, delay: 0, options: [.curveLinear]) { [weak self] in
+            self?.firstFalling.frame.origin.y = self?.bounds.height ?? 0
+            self?.secondFalling.frame.origin.y = self?.bounds.height ?? 0
         } completion: { [weak self] _ in
             guard let self = self else { return }
-            self.leftObject.frame = self.leftObgectFrame
-            self.rightObject.frame = self.rightObgectFrame
+            self.firstFalling.frame = self.firstFrame
+            self.secondFalling.frame = self.secondFrame
             movingBorder()
         }
     }
