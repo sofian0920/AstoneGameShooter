@@ -8,37 +8,21 @@
 import Foundation
 
 
-protocol SettingPresenterProtocol {
+protocol SettingsPresenterProtocol {
     func present(speedLevel value: SpeedLevel)
     func present(userName value: String)
 }
 
-final class SettingPresenter: SettingPresenterProtocol {
-    weak var view: SettingsViewController?
+final class SettingsPresenter: SettingsPresenterProtocol {
+    weak var view: SettingsViewProtocol?
     
     func present(speedLevel value: SpeedLevel) {
-//        view?.show(speedLevel: value.rawValue)
+        view?.show(speedLevel: value.rawValue)
     }
     
     func present(userName value: String) {
-//        view?.show(userName: value)
+        view?.show(userName: value)
     }
     
     
 }
-//final class SettingsPresenter: SettingsPresenterProtocol {
-//    weak var view: SettingsViewProtocol?
-//    
-//    func present(difficultyLevel value: DifficultyLevel) {
-//        view?.show(difficultyLevel: value.rawValue)
-//    }
-//    
-//    func present(controlMode value: ControlMode) {
-//        view?.show(controlMode: value.rawValue)
-//    }
-//    
-//    func present(userName value: String) {
-//        view?.show(userName: value)
-//    }
-//    
-//}

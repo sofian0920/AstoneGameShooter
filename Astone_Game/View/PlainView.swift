@@ -13,7 +13,8 @@ class PlainView: UIImageView {
     private let selfAnimationRepeatCount = 1
 
     convenience init() {
-        self.init(image: Image.userPlain.wrappedValue)
+
+        self.init(image: CherecterSettings.settingElement.plainImage)
         self.animationImages = [Image.boomFirst.wrappedValue!, Image.boomSecond.wrappedValue!]
         self.animationDuration = selfAnimationDuration
         self.animationRepeatCount = selfAnimationRepeatCount

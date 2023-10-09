@@ -15,10 +15,10 @@ protocol SettingInteractorProtocol {
 }
 
 final class SettingInteractor: SettingInteractorProtocol {
-    private let presenter: SettingPresenter
+    private let presenter: SettingsPresenter
     private let settings: CherecterSettings
     
-    init(presenter: SettingPresenter, settings: CherecterSettings) {
+    init(presenter: SettingsPresenter, settings: CherecterSettings) {
         self.presenter = presenter
         self.settings = settings
     }
