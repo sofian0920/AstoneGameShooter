@@ -15,8 +15,8 @@ protocol SettingInteractorProtocol {
 }
 
 final class SettingInteractor: SettingInteractorProtocol {
-    private let presenter: SettingsPresenter
-    private let settings: CherecterSettings
+    private let presenter: SettingsPresenterProtocol
+    private let settings: CherecterSettingsProtocol
     
     init(presenter: SettingsPresenter, settings: CherecterSettings) {
         self.presenter = presenter
@@ -49,7 +49,7 @@ final class SettingInteractor: SettingInteractorProtocol {
     }
     
     func setPlainImage(with value: PlainImage) {
-        settings.setplainImage(with: value)
+        settings.setPlainImage(with: value)
     }
 }
 

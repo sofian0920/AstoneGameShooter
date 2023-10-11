@@ -13,17 +13,34 @@ class RecordTableViewCell: UITableViewCell {
     
     static let identifier = "RecordTableViewCell"
     
-    func prepare(with scoreValue: String) {
-        self.backgroundColor = .cyan
-        scoreLabel.text = scoreValue
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        commonInit()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        commonInit()
+    }
+    
+    func commonInit(){
         scoreLabel.textColor = .black
         scoreLabel.textAlignment = .left
         scoreLabel.adjustsFontSizeToFitWidth = true
         scoreLabel.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(scoreLabel)
-        scoreLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 25).isActive = true
-        scoreLabel.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
-        scoreLabel.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         
+        NSLayoutConstraint.activate([
+            scoreLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
+            scoreLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
+            scoreLabel.topAnchor.constraint(equalTo: topAnchor),
+            scoreLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+    }
+    
+    func prepare(with scoreValue: String) {
+        self.backgroundColor = .clear
+        scoreLabel.text = scoreValue
     }
 }
+

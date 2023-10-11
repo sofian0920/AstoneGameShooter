@@ -13,7 +13,6 @@ protocol SettingsViewProtocol: AnyObject{
     func show(userName value: String)
 }
 
-
 class SettingsViewController: UIViewController, SettingsViewProtocol {
     
     private let interactor: SettingInteractorProtocol
@@ -26,7 +25,7 @@ class SettingsViewController: UIViewController, SettingsViewProtocol {
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         let presenter = SettingsPresenter()
-        self.interactor = SettingInteractor(presenter: presenter, settings: CherecterSettings.settingElement)
+        self.interactor = SettingInteractor(presenter: presenter, settings: CherecterSettings.shared)
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         presenter.view = self
     }
@@ -38,14 +37,17 @@ class SettingsViewController: UIViewController, SettingsViewProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
-        addButton()
-        addBackgroundView()
+        setUpUI()
     
     }
-    
+    private func setUpUI() {
+        addButton()
+        addBackgroundView()
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         interactor.vieWillAppear()
+        
     }
      
     @objc private func plainSelectionButtonTapped() {
@@ -65,7 +67,7 @@ class SettingsViewController: UIViewController, SettingsViewProtocol {
 
     private func addButton() {
         let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.boldSystemFont(ofSize: 15),
+            .font: UIFont.boldSystemFont(ofSize: 20),
             .foregroundColor: UIColor.black
         ]
         
@@ -81,12 +83,13 @@ class SettingsViewController: UIViewController, SettingsViewProtocol {
         
         
         currentSpeedLavelLabel.translatesAutoresizingMaskIntoConstraints = false
-        currentSpeedLavelLabel.font = .boldSystemFont(ofSize: 10)
+        currentSpeedLavelLabel.font = .boldSystemFont(ofSize: 20)
         currentSpeedLavelLabel.textAlignment = .center
         speedLevelButton.addSubview(currentSpeedLavelLabel)
         currentSpeedLavelLabel.bottomAnchor.constraint(equalTo: speedLevelButton.bottomAnchor).isActive = true
         currentSpeedLavelLabel.widthAnchor.constraint(equalTo: speedLevelButton.widthAnchor).isActive = true
         
+    
         
         let plainSelectionButtonAttributes = NSAttributedString(string: "SELECT PLAIN", attributes: attributes)
         plainSelectionButton.setAttributedTitle(plainSelectionButtonAttributes, for: .normal)
@@ -138,7 +141,9 @@ class SettingsViewController: UIViewController, SettingsViewProtocol {
 
     
     func show(speedLevel value: String) {
-        currentSpeedLavelLabel.text = value
+        DispatchQueue.main.async {
+            self.currentSpeedLavelLabel.text = "Current speed: \(value)"
+        }
     }
     
     func show(userName value: String) {

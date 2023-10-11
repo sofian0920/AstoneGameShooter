@@ -32,11 +32,11 @@ enum SpeedLevel: String{
     var speed: Double {
         switch self{
         case .easy:
-            return 5
+            return 5.0
         case .normal:
-            return 3
+            return 3.0
         case .hard:
-            return 2
+            return 2.0
         }
     }
 }
@@ -46,24 +46,26 @@ protocol CherecterSettingsProtocol {
     var userName: String { get }
     var speedLevel: SpeedLevel { get }
     
-    func setplainImage(with plainImage: PlainImage)
+    func setPlainImage(with plainImage: PlainImage)
     func setUserName(with name: String)
+    func setSpeedLevel(with level: SpeedLevel)
+    func writeScore(with value: String)
 }
 
 
 class CherecterSettings: CherecterSettingsProtocol {
    
-    static let settingElement = CherecterSettings()
+    static let shared = CherecterSettings()
+    
+    private init() {}
     
     var userName: String {
-        guard let name = UserDefaults.standard.value(forKey: Keys.userName.rawValue) as? String else { return "" }
-        return name
+        return UserDefaults.standard.string(forKey: Keys.userName.rawValue) ?? ""
     }
     
     var plainImage: UIImage{
-        let plainImage = UserDefaults.standard.value(forKey: Keys.plainImage.rawValue) as? String
-        let image = UIImage(named: plainImage ?? PlainImage.plainOne.rawValue)
-        return image ?? UIImage()
+        let imageName = UserDefaults.standard.string(forKey: Keys.plainImage.rawValue) ?? PlainImage.plainOne.rawValue
+        return UIImage(named: imageName) ?? UIImage()
     }
     
     var speedLevel: SpeedLevel {
@@ -72,13 +74,10 @@ class CherecterSettings: CherecterSettingsProtocol {
     }
     
     var score: [String] {
-        guard let array = UserDefaults.standard.value(forKey: Keys.scoresCount.rawValue) as? [String] else {
-            return []
-        }
-        return array
+        return UserDefaults.standard.stringArray(forKey: Keys.scoresCount.rawValue) ?? []
     }
     
-    func setplainImage(with plainImage: PlainImage) {
+    func setPlainImage(with plainImage: PlainImage) {
         UserDefaults.standard.set(plainImage.rawValue, forKey: Keys.plainImage.rawValue)
     }
     
@@ -90,14 +89,9 @@ class CherecterSettings: CherecterSettingsProtocol {
         UserDefaults.standard.set(level.rawValue, forKey: Keys.speedLevel.rawValue)
     }
     
-    func writeScore(_ value: String) {
-        guard var array = UserDefaults.standard.value(forKey: Keys.gameScores.rawValue) as? [String] else {
-            let array = [value]
-            UserDefaults.standard.set(array, forKey: Keys.gameScores.rawValue)
-            return
-        }
-        array.append(value)
-        UserDefaults.standard.set(array, forKey: Keys.gameScores.rawValue)
-        
+    func writeScore(with value: String) {
+        var score = self.score
+        score.append(value)
+        UserDefaults.standard.set(score, forKey: Keys.scoresCount.rawValue)
     }
 }

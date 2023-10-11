@@ -33,11 +33,7 @@ class GameViewController: UIViewController {
             }
         }
     }
-    
-//    private var spaceShipFireViews: [UIImageView?] = []
-//    private var buttonHeldTimer: Timer?
-//    private var immortalSpaceShipTimer: Timer?
-    
+
     
     private let buttonSide: CGFloat = 20
     private let buttonBottom: CGFloat = 40
@@ -46,7 +42,7 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = true
+//        self.navigationController?.isNavigationBarHidden = true
 
         readyToPlay()
     }
@@ -63,6 +59,7 @@ class GameViewController: UIViewController {
         addScoreLabel()
         addBorderLine()
     }
+    
     
     @objc private func startTouchButton(_ sender: UIButton) {
         buttonTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { [weak self] _ in
@@ -162,19 +159,17 @@ class GameViewController: UIViewController {
         scoreLabel.textAlignment = .right
         scoreLabel.translatesAutoresizingMaskIntoConstraints = false
         backgroundImage.addSubview(scoreLabel)
-        scoreLabel.trailingAnchor.constraint(equalTo: backgroundImage.trailingAnchor, constant: 20).isActive = true
+        scoreLabel.trailingAnchor.constraint(equalTo: backgroundImage.trailingAnchor, constant: -20).isActive = true
         scoreLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         scoreLabel.widthAnchor.constraint(equalTo: backgroundImage.widthAnchor).isActive = true
         
     }
     
     private func addPlainView() {
-        
         plainView.frame.size = CGSizeMake(view.frame.size.width * 0.18,  view.frame.size.height * 0.075)
-        plainView.center.x = view.center.x
-        plainView.frame.origin.y = view.frame.maxY - 240
+               plainView.center.x = view.center.x
+               plainView.frame.origin.y = view.frame.maxY - 240
         view.addSubview(plainView)
-        
     }
     
     
@@ -194,17 +189,19 @@ class GameViewController: UIViewController {
     private func addEnemy() {
         isEnemyDead = true
         enemyView.frame.size = CGSizeMake(view.frame.width * 0.13, view.frame.height * 0.07)
-        let emenyMinX = Int(backgroundImage.frame.origin.x + 40)
-        let enemyMaxX = Int(leftBorderView.frame.width + backgroundImage.frame.width - enemyView.frame.width)
-        let enemeRandomPoint = Int.random(in: emenyMinX...enemyMaxX)
+        let enemyMinX = leftBorderView.frame.maxX + enemyView.frame.width / 2
+        let enemyMaxX = rightBorderView.frame.minX - enemyView.frame.width / 2
+        let enemeRandomPoint = CGFloat.random(in: enemyMinX...enemyMaxX)
         enemyView.frame.origin = CGPoint(x: enemeRandomPoint, y: -100)
         view.addSubview(enemyView)
     }
     
     private func startFallingEnemy() {
-        UIView.animate(withDuration: CherecterSettings.settingElement.speedLevel.speed, delay: 0, options: [.curveLinear]) { [weak self] in
-            self?.enemyView.frame.origin.y = self?.view.frame.maxY ?? 0 + (self?.enemyView.frame.height ?? 0)
-        } completion: { [weak self] _ in
+        UIView.animate(withDuration: CherecterSettings.shared.speedLevel.speed, delay: 0, options: [.curveLinear], animations: { [weak self] in
+            guard let self = self else { return }
+            self.enemyView.frame.origin.y = self.view.frame.maxY + self.enemyView.frame.height
+
+        }) { [weak self] _ in
             guard let isEnemyDead = self?.isEnemyDead, let isGameOver = self?.isGameOver else { return }
             if isEnemyDead && !isGameOver {
                 self?.scoreCount += 1
@@ -236,9 +233,9 @@ class GameViewController: UIViewController {
             isPlainDead = false
             plainView.startAnimating()
             plainView.isUserInteractionEnabled = false
-            UIView.animate(withDuration: 0.6, delay: 0.8, options: [.curveLinear]) { [weak self] in
+            UIView.animate(withDuration: 0.6, delay: 0.8, options: [.curveLinear], animations:  { [weak self] in
                 self?.plainView.center.x = self?.view.center.x ?? 0
-            } completion: { [weak self] _ in
+            }) { [weak self] _ in
                 self?.plainView.isUserInteractionEnabled = true
                 self?.isPlainDead = true
             }
@@ -264,7 +261,6 @@ class GameViewController: UIViewController {
         }
     }
     
-    
     private func gameOver() {
         isGameOver = true
         
@@ -274,20 +270,23 @@ class GameViewController: UIViewController {
         format.dateStyle = .medium
         let date = format.string(from: myTime)
         let score = "\(date) - \(scoreCount) your scores"
-        CherecterSettings.settingElement.writeScore(score)
+        CherecterSettings.shared.writeScore(with: score)
         
         view.layoutIfNeeded()
-        gameOverLabel.text = "GAME OVER"
+        gameOverLabel.text = "GAME OVER COUNT OF SCORES: \(scoreCount)"
         gameOverLabel.textColor = .red
-        gameOverLabel.font = .boldSystemFont(ofSize: backgroundImage.frame.width * 0.15)
+        gameOverLabel.numberOfLines = 1
+        gameOverLabel.font = .boldSystemFont(ofSize: backgroundImage.frame.width * 0.05)
         gameOverLabel.textAlignment = .center
         gameOverLabel.frame = CGRect(x: backgroundImage.frame.origin.x, y: backgroundImage.frame.origin.y, width: backgroundImage.frame.width, height: backgroundImage.frame.width * 0.15)
         view.addSubview(gameOverLabel)
         
-        UIView.animate(withDuration: 4.0, delay: 0, options: [.curveLinear]) { [weak self] in
-            guard let maxY = self?.view.frame.maxY, let gameOverHeight = self?.gameOverLabel.frame.height else { return }
-            self?.gameOverLabel.frame.origin.y += maxY + gameOverHeight
-        } completion: { [weak self] _ in
+        UIView.animate(withDuration: 4.0, delay: 0, options: [.curveLinear], animations:  { [weak self] in
+            guard let self = self else { return }
+            let maxY = self.view.frame.maxY
+            let gameOverHeight = self.gameOverLabel.frame.height
+            self.gameOverLabel.frame.origin.y += maxY + gameOverHeight
+        }) { [weak self] _ in
             self?.navigationController?.popViewController(animated: true)
         }
     }
@@ -299,4 +298,3 @@ class GameViewController: UIViewController {
     }
     
 }
-
