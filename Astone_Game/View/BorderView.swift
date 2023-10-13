@@ -39,7 +39,7 @@ final class BorderView: UIView{
 
     
     private func movingBorder() {
-        UIView.animate(withDuration: 1.6, delay: 0, options: [.curveLinear]) { [weak self] in
+        UIView.animate(withDuration: 1.6, delay: -10, options: [.curveLinear]) { [weak self] in
             self?.firstFalling.frame.origin.y = self?.bounds.height ?? 0
             self?.secondFalling.frame.origin.y = self?.bounds.height ?? 0
         } completion: { [weak self] _ in
@@ -53,23 +53,3 @@ final class BorderView: UIView{
 
 
 
-//private let objectsAnimateDuration = 0.3
-//
-//func start() {
-//    addObjectOnBorderView()
-//    startObjectsMoving()
-//}
-
-//
-//private func startObjectsMoving() {
-//    UIView.animate(withDuration: objectsAnimateDuration, delay: 0, options: [.curveLinear]) { [weak self] in
-//        self?.firstObject.frame.origin.y += self?.bounds.height ?? 0
-//        self?.secondObject.frame.origin.y += self?.bounds.height ?? 0
-//    } completion: { [weak self] _ in
-//        guard let self = self else { return }
-//        self.firstObject.frame = self.firstObjectStartedFrame
-//        self.secondObject.frame = self.secondObjectStartedFrame
-//        startObjectsMoving()
-//    }
-//}
-//}

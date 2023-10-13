@@ -15,20 +15,20 @@ protocol SettingsViewProtocol: AnyObject{
 
 class SettingsViewController: UIViewController, SettingsViewProtocol {
     
-    private let interactor: SettingInteractorProtocol
+    private var controller: SettingsControllerrProtocol
     private let backgroundImage = UIImageView()
     private let speedLevelButton = UIButton()
     private let currentSpeedLavelLabel = UILabel()
     private let plainSelectionButton = UIButton()
     private let exitButton = UIButton()
+    private let userImageButton = UIButton()
     private let userNameTextField = UITextField()
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        let presenter = SettingsPresenter()
-        self.interactor = SettingInteractor(presenter: presenter, settings: CherecterSettings.shared)
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        presenter.view = self
-    }
+    init(controller: SettingsControllerrProtocol) {
+            self.controller = controller
+            super.init(nibName: nil, bundle: nil)
+            self.controller.view = self
+        }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -46,23 +46,30 @@ class SettingsViewController: UIViewController, SettingsViewProtocol {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        interactor.vieWillAppear()
+        controller.vieWillAppear()
         
     }
      
     @objc private func plainSelectionButtonTapped() {
         let viewController = SettingPlainViewController { [weak self] result in
-            self?.interactor.setPlainImage(with: result)
+            self?.controller.setPlainImage(with: result)
         }
         present(viewController, animated: true)
     }
     
     @objc private func speedLavelButtonTapped() {
-        interactor.speedLevel()
+        controller.speedLevel()
     }
 
     @objc private func saveButtonTapped() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func userImageButtonTapped() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true)
     }
 
     private func addButton() {
@@ -113,6 +120,17 @@ class SettingsViewController: UIViewController, SettingsViewProtocol {
         exitButton.heightAnchor.constraint(equalTo: speedLevelButton.heightAnchor).isActive = true
         exitButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
         
+        userImageButton.setImage(CherecterSettings.shared.userImage, for: .normal)
+        userImageButton.imageView?.contentMode = .scaleAspectFill
+        userImageButton.backgroundColor = .clear
+        userImageButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(userImageButton)
+        userImageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        userImageButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        userImageButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.6).isActive = true
+        userImageButton.heightAnchor.constraint(equalTo: userImageButton.widthAnchor).isActive = true
+        userImageButton.addTarget(self, action: #selector(userImageButtonTapped), for: .touchUpInside)
+        
         userNameTextField.placeholder = "Enter your name"
         userNameTextField.textAlignment = .center
         userNameTextField.clearButtonMode = .whileEditing
@@ -121,7 +139,7 @@ class SettingsViewController: UIViewController, SettingsViewProtocol {
         userNameTextField.delegate = self
         userNameTextField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(userNameTextField)
-        userNameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 60).isActive = true
+        userNameTextField.topAnchor.constraint(equalTo: userImageButton.bottomAnchor).isActive = true
         userNameTextField.widthAnchor.constraint(equalTo: speedLevelButton.widthAnchor).isActive = true
         userNameTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
@@ -151,12 +169,20 @@ class SettingsViewController: UIViewController, SettingsViewProtocol {
     }
 }
 
-
+extension SettingsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let chooseImage = info[.originalImage] as? UIImage {
+            CherecterSettings.shared.setUserImage(with: chooseImage )
+            userImageButton.setImage(CherecterSettings.shared.userImage, for: .normal)
+            picker.dismiss(animated: true)
+        }
+    }
+}
 extension SettingsViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == userNameTextField {
             userNameTextField.resignFirstResponder()
-            interactor.setUserName(with: textField.text ?? "")
+            controller.setUserName(with: textField.text ?? "")
         }
         return true
     }

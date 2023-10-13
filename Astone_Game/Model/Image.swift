@@ -17,6 +17,7 @@ enum Image {
     case background
     case boomFirst
     case boomSecond
+    case userImage
     
     var wrappedValue: UIImage? {
         switch self {
@@ -32,6 +33,8 @@ enum Image {
             return UIImage(named: "boomImage")
         case .boomSecond:
             return UIImage(named: "boomImage-2")
+        case .userImage:
+            return UIImage(named: "userImage")
         }
     }
 }

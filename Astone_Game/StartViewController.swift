@@ -76,7 +76,8 @@ class StartViewController: UIViewController {
         case startButton:
             viewController = GameViewController()
         case settingButton:
-            viewController = SettingsViewController()
+            let settingsController = SettingsController(settings: CherecterSettings.shared)
+            viewController = SettingsViewController(controller: settingsController)
         case recordButton:
             viewController = RecordViewController()
             
@@ -86,4 +87,5 @@ class StartViewController: UIViewController {
         navigationController?.pushViewController(viewController, animated: true)
     }
 }
+
 

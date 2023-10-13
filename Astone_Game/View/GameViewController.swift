@@ -26,6 +26,7 @@ class GameViewController: UIViewController {
     private var isGameOver = false
     private let leftBorderView = BorderView()
     private let rightBorderView = BorderView()
+    private let userName = CherecterSettings.shared.userName
     private var userLife = 1 {
         willSet {
             if newValue <= 0 {
@@ -42,7 +43,6 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.navigationController?.isNavigationBarHidden = true
 
         readyToPlay()
     }
@@ -269,7 +269,7 @@ class GameViewController: UIViewController {
         format.timeStyle = .short
         format.dateStyle = .medium
         let date = format.string(from: myTime)
-        let score = "\(date) - \(scoreCount) your scores"
+        let score = "\(userName)\(date) - \(scoreCount) your scores"
         CherecterSettings.shared.writeScore(with: score)
         
         view.layoutIfNeeded()
