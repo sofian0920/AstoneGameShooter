@@ -13,11 +13,15 @@ import UIKit
 
 class SettingPlainViewController: UIViewController {
     
+    // MARK: - Properties
+    
     private let firstPlainButton = UIButton()
     private let secondPlainButton = UIButton()
     private let thirdPlainButton = UIButton()
     
     var completion: ((PlainImage) -> ())
+    
+    // MARK: - Initialization
     
     init (completion: @escaping (PlainImage) -> Void) {
         self.completion = completion
@@ -28,12 +32,17 @@ class SettingPlainViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - View Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.cyan.withAlphaComponent(0.1)
         addElements()
         
     }
+    
+    
+    // MARK: - Button Actions
     
     @objc private func plainImageTapped(_ target: UIButton) {
             switch target {
@@ -49,34 +58,39 @@ class SettingPlainViewController: UIViewController {
             self.dismiss(animated: true)
         }
     
-    private func addElements() {
-        firstPlainButton.translatesAutoresizingMaskIntoConstraints = false
-                firstPlainButton.setImage(UIImage(named: PlainImage.plainOne.rawValue), for: .normal)
-                view.addSubview(firstPlainButton)
-                firstPlainButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4).isActive = true
-                firstPlainButton.heightAnchor.constraint(equalTo: firstPlainButton.widthAnchor).isActive = true
-                firstPlainButton.trailingAnchor.constraint(equalTo: view.centerXAnchor, constant: -10).isActive = true
-                firstPlainButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-                firstPlainButton.addTarget(self, action: #selector(plainImageTapped), for: .touchUpInside)
-                
-        
-        secondPlainButton.translatesAutoresizingMaskIntoConstraints = false
-                secondPlainButton.setImage(UIImage(named: PlainImage.plainTwo.rawValue), for: .normal)
-                view.addSubview(secondPlainButton)
-                secondPlainButton.widthAnchor.constraint(equalTo: firstPlainButton.widthAnchor).isActive = true
-                secondPlainButton.heightAnchor.constraint(equalTo: firstPlainButton.heightAnchor).isActive = true
-                secondPlainButton.trailingAnchor.constraint(equalTo: view.centerXAnchor, constant: 100).isActive = true
-                secondPlainButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-                secondPlainButton.addTarget(self, action: #selector(plainImageTapped), for: .touchUpInside)
-        
-        thirdPlainButton.translatesAutoresizingMaskIntoConstraints = false
-                thirdPlainButton.setImage(UIImage(named: PlainImage.plainThree.rawValue), for: .normal)
-                view.addSubview(thirdPlainButton)
-                thirdPlainButton.widthAnchor.constraint(equalTo: firstPlainButton.widthAnchor).isActive = true
-                thirdPlainButton.heightAnchor.constraint(equalTo: firstPlainButton.heightAnchor).isActive = true
-                thirdPlainButton.trailingAnchor.constraint(equalTo: view.centerXAnchor, constant: 200).isActive = true
-                thirdPlainButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-                thirdPlainButton.addTarget(self, action: #selector(plainImageTapped), for: .touchUpInside)
-    }
     
+    // MARK: - UI Setup
+    
+    private func addElements() {
+
+        let buttonWidthMultiplier: CGFloat = 0.4
+        let buttonSpacing: CGFloat = 100.0
+
+        firstPlainButton.translatesAutoresizingMaskIntoConstraints = false
+               firstPlainButton.setImage(UIImage(named: PlainImage.plainOne.rawValue), for: .normal)
+               view.addSubview(firstPlainButton)
+               firstPlainButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: buttonWidthMultiplier).isActive = true
+               firstPlainButton.heightAnchor.constraint(equalTo: firstPlainButton.widthAnchor).isActive = true
+               firstPlainButton.trailingAnchor.constraint(equalTo: view.centerXAnchor, constant: -buttonSpacing).isActive = true
+               firstPlainButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+               firstPlainButton.addTarget(self, action: #selector(plainImageTapped), for: .touchUpInside)
+               
+               secondPlainButton.translatesAutoresizingMaskIntoConstraints = false
+               secondPlainButton.setImage(UIImage(named: PlainImage.plainTwo.rawValue), for: .normal)
+               view.addSubview(secondPlainButton)
+               secondPlainButton.widthAnchor.constraint(equalTo: firstPlainButton.widthAnchor).isActive = true
+               secondPlainButton.heightAnchor.constraint(equalTo: firstPlainButton.heightAnchor).isActive = true
+               secondPlainButton.trailingAnchor.constraint(equalTo: view.centerXAnchor, constant: buttonSpacing).isActive = true
+               secondPlainButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+               secondPlainButton.addTarget(self, action: #selector(plainImageTapped), for: .touchUpInside)
+               
+               thirdPlainButton.translatesAutoresizingMaskIntoConstraints = false
+               thirdPlainButton.setImage(UIImage(named: PlainImage.plainThree.rawValue), for: .normal)
+               view.addSubview(thirdPlainButton)
+               thirdPlainButton.widthAnchor.constraint(equalTo: firstPlainButton.widthAnchor).isActive = true
+               thirdPlainButton.heightAnchor.constraint(equalTo: firstPlainButton.heightAnchor).isActive = true
+               thirdPlainButton.trailingAnchor.constraint(equalTo: view.centerXAnchor, constant: buttonSpacing * 2).isActive = true
+               thirdPlainButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+               thirdPlainButton.addTarget(self, action: #selector(plainImageTapped), for: .touchUpInside)
+           }
 }

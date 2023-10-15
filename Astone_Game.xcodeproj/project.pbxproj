@@ -79,6 +79,7 @@
 		AC7C42612AD0369700FDD76C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				ACB49C2E2AA8A39500591F35 /* StartViewController.swift */,
 				AC7C425F2AD0360500FDD76C /* EnemyView.swift */,
 				AC8E21062AD1B03A00D26D59 /* BorderView.swift */,
 				AC7C425D2AD033FF00FDD76C /* PlainView.swift */,
@@ -117,7 +118,6 @@
 			children = (
 				ACB49C2A2AA8A39500591F35 /* AppDelegate.swift */,
 				ACB49C2C2AA8A39500591F35 /* SceneDelegate.swift */,
-				ACB49C2E2AA8A39500591F35 /* StartViewController.swift */,
 				AC6F3F7B2AD2F30400B1031D /* Setting */,
 				AC6F3F702AD2A6C400B1031D /* Record */,
 				AC7C42612AD0369700FDD76C /* View */,

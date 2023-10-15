@@ -9,28 +9,35 @@ import UIKit
 
 class RecordViewController: UIViewController {
 
-    let backgroundImageView = UIImageView()
-    let recordTableView = UITableView()
+    // MARK: - Properties
+       
+       let backgroundImageView = UIImageView()
+       let recordTableView = UITableView()
+       
+       // MARK: - View Lifecycle
+       
+       override func viewDidLoad() {
+           super.viewDidLoad()
+           setUpNavigationBar()
+           setUpUI()
+       }
+       
+       // MARK: - UI Setup
+       
+       private func setUpNavigationBar() {
+           navigationController?.isNavigationBarHidden = false
+           navigationController?.navigationBar.tintColor = .black
+       }
+       
+       private func setUpUI() {
+           view.backgroundColor = .white
+           addBackground()
+           addRecordTable()
+       }
+       
+       // MARK: - UI Helper Methods
     
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setUpNavigationBar()
-        setUpUI()
-    }
-    
-    private func setUpNavigationBar() {
-        navigationController?.isNavigationBarHidden = false
-        navigationController?.navigationBar.tintColor = .black
-    }
-    private func setUpUI() {
-        view.backgroundColor = .white
-        addBackground()
-        addRecordTable()
-    }
-
-
     private func addBackground() {
         backgroundImageView.image = Image.background.wrappedValue
         backgroundImageView.contentMode = .scaleAspectFill
@@ -63,6 +70,7 @@ class RecordViewController: UIViewController {
 
 extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
     
+    // MARK: - UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return CherecterSettings.shared.score.count
@@ -73,6 +81,9 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
         cell.prepare(with: CherecterSettings.shared.score[indexPath.row])
         return cell
     }
+    
+    // MARK: - UITableViewDelegate
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }

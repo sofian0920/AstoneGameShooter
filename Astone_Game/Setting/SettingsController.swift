@@ -8,7 +8,8 @@
 import Foundation
 
 protocol SettingsControllerrProtocol {
-    var view: SettingsViewProtocol? { get set } 
+    
+    var view: SettingsViewProtocol? { get set }
     func vieWillAppear()
     func speedLevel()
     func setUserName(with name: String)
@@ -18,12 +19,19 @@ protocol SettingsControllerrProtocol {
 }
 
 final class SettingsController: SettingsControllerrProtocol {
+    
+    // MARK: - Properties
+    
     private let settings: CherecterSettingsProtocol
     internal weak var view: SettingsViewProtocol?
+    
+    // MARK: - Initialization
     
     init(settings: CherecterSettings) {
         self.settings = settings
     }
+    
+    // MARK: - SettingsControllerrProtocol Methods
     
     func present(speedLevel value: SpeedLevel) {
         view?.show(speedLevel: value.rawValue)

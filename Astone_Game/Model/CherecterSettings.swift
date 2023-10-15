@@ -60,6 +60,8 @@ class CherecterSettings: CherecterSettingsProtocol {
     
     private init() {}
     
+    // MARK: - CherecterSettingsProtocol Conformance
+    
     var userName: String {
         return UserDefaults.standard.string(forKey: Keys.userName.rawValue) ?? ""
     }
@@ -113,6 +115,8 @@ class CherecterSettings: CherecterSettingsProtocol {
     func getUserImage(with name: String) -> UIImage? {
         loadImage(fileName: name)
     }
+    
+    // MARK: - Private Utility Methods
     
     private func getDocumentsDirectory() -> URL? {
             return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first

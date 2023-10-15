@@ -10,6 +10,9 @@ import UIKit
 
 
 class GameViewController: UIViewController {
+    
+    // MARK: - Properties
+    
     private let plainView = PlainView()
     private var isPlainDead = true
     private let enemyView = EnemyView()
@@ -40,6 +43,8 @@ class GameViewController: UIViewController {
     private let buttonBottom: CGFloat = 40
     private let buttonSize: CGFloat = 60
 
+    // MARK: - View Lifecycle
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,6 +88,7 @@ class GameViewController: UIViewController {
         buttonTimer = nil
     }
     
+    // MARK: - UI Helper Methods
     
     private func addRuleButten() {
         leftButton.backgroundColor = .white
@@ -172,6 +178,8 @@ class GameViewController: UIViewController {
         view.addSubview(plainView)
     }
     
+    
+    // MARK: - Game Logic
     
     private func startGame(){
         addEnemy()

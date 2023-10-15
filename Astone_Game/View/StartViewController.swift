@@ -8,11 +8,15 @@
 import UIKit
 
 class StartViewController: UIViewController {
+    
+    // MARK: - UI Elements
+    
     private let backgroundImageView = UIImageView()
     private let startButton = UIButton()
     private let settingButton = UIButton()
     private let recordButton = UIButton()
     
+    // MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +24,8 @@ class StartViewController: UIViewController {
         setUpStartView()
         
     }
+    
+    // MARK: - UI Setup
     
     private func setUpStartView() {
         
@@ -69,6 +75,8 @@ class StartViewController: UIViewController {
         backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
+    
+    // MARK: - Button Actions
     
     @objc private func buttonTub(_ target: UIButton){
         var viewController: UIViewController

@@ -15,6 +15,9 @@ protocol SettingsViewProtocol: AnyObject{
 
 class SettingsViewController: UIViewController, SettingsViewProtocol {
     
+    
+    // MARK: - Properties
+    
     private var controller: SettingsControllerrProtocol
     private let backgroundImage = UIImageView()
     private let speedLevelButton = UIButton()
@@ -23,6 +26,9 @@ class SettingsViewController: UIViewController, SettingsViewProtocol {
     private let exitButton = UIButton()
     private let userImageButton = UIButton()
     private let userNameTextField = UITextField()
+    
+    
+    // MARK: - Initialization
     
     init(controller: SettingsControllerrProtocol) {
             self.controller = controller
@@ -34,12 +40,17 @@ class SettingsViewController: UIViewController, SettingsViewProtocol {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - View Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
         setUpUI()
     
     }
+    
+    // MARK: - UI Setup
+    
     private func setUpUI() {
         addButton()
         addBackgroundView()
@@ -49,7 +60,9 @@ class SettingsViewController: UIViewController, SettingsViewProtocol {
         controller.vieWillAppear()
         
     }
-     
+    
+    // MARK: - Button Actions
+    
     @objc private func plainSelectionButtonTapped() {
         let viewController = SettingPlainViewController { [weak self] result in
             self?.controller.setPlainImage(with: result)
@@ -157,6 +170,7 @@ class SettingsViewController: UIViewController, SettingsViewProtocol {
         view.layoutIfNeeded()
     }
 
+    // MARK: - SettingsViewProtocol Methods
     
     func show(speedLevel value: String) {
         DispatchQueue.main.async {
@@ -168,6 +182,8 @@ class SettingsViewController: UIViewController, SettingsViewProtocol {
         userNameTextField.text = value
     }
 }
+
+// MARK: - Extensions
 
 extension SettingsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
